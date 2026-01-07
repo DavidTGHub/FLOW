@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOW - Uskoro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #831784;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100vh) translateX(50px); }
+        }
+        
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+        }
+        
+        /* Logo */
+        .logo {
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .logo-shapes {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 0;
+            margin-bottom: 20px;
+        }
+        
+        .logo-rect {
+            transition: all 0.3s;
+        }
+        
+        .logo-rect.tall {
+            width: 85px;
+            height: 150px;
+            background: #831784;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .logo-rect.short {
+            width: 90px;
+            height: 90px;
+            background: #351F9C;
+            border-radius: 0 3px 3px 0;
+        }
+        
+        .logo-text {
+            font-size: 52px;
+            font-weight: 600;
+            color: #8B5FBF;
+            letter-spacing: 1px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            text-transform: lowercase;
+        }
+        
+        /* Glitch effect on hover */
+        .logo:hover .logo-rect {
+            animation: glitch 0.3s;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        /* Main message */
+        .main-message {
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+        
+        .glitch-text {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #831784, #351F9C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #888;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            color: #831784;
+            font-weight: 600;
+        }
+        
+        /* Key points */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            animation: fadeIn 2s ease-out 1s both;
+        }
+        
+        .key-point {
+            padding: 30px 20px;
+            background: rgba(131, 23, 132, 0.05);
+            border: 1px solid rgba(131, 23, 132, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .key-point:hover {
+            background: rgba(131, 23, 132, 0.1);
+            border-color: #831784;
+            transform: translateY(-5px);
+        }
+        
+        .key-point-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            filter: grayscale(1);
+            opacity: 0.7;
+        }
+        
+        .key-point-text {
+            font-size: 18px;
+            color: #ccc;
+            font-weight: 500;
+        }
+        
+        /* Countdown */
+        .countdown {
+            margin: 60px 0;
+            animation: fadeIn 2.5s ease-out 1.5s both;
+        }
+        
+        .countdown-title {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-size: 56px;
+            font-weight: 800;
+            color: #831784;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .countdown-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Email signup */
+        .signup {
+            margin: 60px auto;
+            max-width: 500px;
+            animation: fadeIn 3s ease-out 2s both;
+        }
+        
+        .signup-title {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .signup-form {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .signup-input {
+            flex: 1;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(131, 23, 132, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .signup-input:focus {
+            outline: none;
+            border-color: #831784;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .signup-input::placeholder {
+            color: #666;
+        }
+        
+        .signup-button {
+            padding: 16px 40px;
+            background: linear-gradient(45deg, #831784, #351F9C);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(131, 23, 132, 0.4);
+        }
+        
+        /* Footer hint */
+        .footer-hint {
+            margin-top: 80px;
+            font-size: 14px;
+            color: #444;
+            animation: fadeIn 3.5s ease-out 2.5s both;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 42px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .countdown-value {
+                font-size: 40px;
+            }
+            
+            .signup-form {
+                flex-direction: column;
+            }
+            
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-shapes">
+                <div class="logo-rect tall"></div>
+                <div class="logo-rect short"></div>
+            </div>
+            <div class="logo-text">flow.rs</div>
+        </div>
+        
+        <!-- Main message -->
+        <div class="main-message">
+            <h1 class="glitch-text">Vreme je da TEČEŠ</h1>
+            <p class="subtitle">
+                Dosta <span class="highlight">lanaca</span>.<br>
+                Dosta <span class="highlight">skrivenih troškova</span>.<br>
+                Dosta <span class="highlight">čekanja</span>.
+            </p>
+        </div>
+        
+        <!-- Key points -->
+        <div class="key-points">
+            <div class="key-point">
+                <div class="key-point-icon">⛓️‍💥</div>
+                <div class="key-point-text">Bez ugovora</div>
+            </div>
+            <div class="key-point">
+                <div class="key-point-icon">💎</div>
+                <div class="key-point-text">Potpuna transparentnost</div>
+            </div>
+            <div class="key-point">
+                <div class="key-point-icon">⚡</div>
+                <div class="key-point-text">3 minuta aktivacija</div>
+            </div>
+            <div class="key-point">
+                <div class="key-point-icon">💰</div>
+                <div class="key-point-text">30% niže cene</div>
+            </div>
+        </div>
+        
+        <!-- Countdown -->
+        <div class="countdown">
+            <div class="countdown-title">Lansiranje za</div>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">14</div>
+                    <div class="countdown-label">Dana</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">08</div>
+                    <div class="countdown-label">Sati</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">42</div>
+                    <div class="countdown-label">Minuta</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">15</div>
+                    <div class="countdown-label">Sekundi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Email signup -->
+        <div class="signup">
+            <div class="signup-title">Budi među prvima. Dobij ekskluzivan pristup.</div>
+            <form class="signup-form" onsubmit="return handleSignup(event)">
+                <input 
+                    type="email" 
+                    class="signup-input" 
+                    placeholder="tvoj@email.rs" 
+                    required
+                />
+                <button type="submit" class="signup-button">
+                    Priključi se
+                </button>
+            </form>
+        </div>
+        
+        <!-- Footer hint -->
+        <div class="footer-hint">
+            Nešto veliko dolazi. Nešto što <span style="color: #831784;">teče</span>.
+        </div>
+    </div>
+    
+    <script>
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Countdown timer (counts down from 14 days)
+        function updateCountdown() {
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 14);
+            
+            function update() {
+                const now = new Date();
+                const diff = launchDate - now;
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+            
+            update();
+            setInterval(update, 1000);
+        }
+        
+        updateCountdown();
+        
+        // Handle signup form
+        function handleSignup(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input').value;
+            alert(`Hvala! ${email} je dodat na listu čekanja. Bićeš među prvima koji će dobiti pristup.`);
+            event.target.reset();
+            return false;
+        }
+        
+        // Easter egg: Glitch effect on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            document.querySelector('.glitch-text').style.animation = 'glitch 0.3s';
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                document.querySelector('.glitch-text').style.animation = '';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
