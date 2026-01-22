@@ -3,471 +3,584 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLOW - Uskoro</title>
+    <title>Emocionalni odnosi ljudi sa AI - Prezentacija</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
+            padding: 20px;
         }
-        
-        /* Animated background particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        .presentation-container {
             width: 100%;
-            height: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
-            z-index: 0;
         }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #831784;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
+
+        .slide {
+            min-height: 600px;
+            padding: 60px;
+            display: none;
+            animation: fadeIn 0.5s;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-100vh) translateX(50px); }
+
+        .slide.active {
+            display: block;
         }
-        
-        /* Main container */
-        .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 40px 20px;
-            max-width: 800px;
-        }
-        
-        /* Logo */
-        .logo {
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
-        }
-        
-        .logo-shapes {
-            display: inline-flex;
-            align-items: flex-end;
-            gap: 0;
-            margin-bottom: 20px;
-        }
-        
-        .logo-rect {
-            transition: all 0.3s;
-        }
-        
-        .logo-rect.tall {
-            width: 85px;
-            height: 150px;
-            background: #831784;
-            border-radius: 3px 0 0 3px;
-        }
-        
-        .logo-rect.short {
-            width: 90px;
-            height: 90px;
-            background: #351F9C;
-            border-radius: 0 3px 3px 0;
-        }
-        
-        .logo-text {
-            font-size: 52px;
-            font-weight: 600;
-            color: #8B5FBF;
-            letter-spacing: 1px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            text-transform: lowercase;
-        }
-        
-        /* Glitch effect on hover */
-        .logo:hover .logo-rect {
-            animation: glitch 0.3s;
-        }
-        
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-        
-        /* Main message */
-        .main-message {
-            margin-bottom: 40px;
-            animation: fadeIn 1.5s ease-out 0.5s both;
-        }
-        
-        .glitch-text {
-            font-size: 64px;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #831784, #351F9C);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .subtitle {
-            font-size: 24px;
-            color: #888;
-            font-weight: 300;
-            margin-bottom: 10px;
-        }
-        
-        .highlight {
-            color: #831784;
-            font-weight: 600;
-        }
-        
-        /* Key points */
-        .key-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-            animation: fadeIn 2s ease-out 1s both;
-        }
-        
-        .key-point {
-            padding: 30px 20px;
-            background: rgba(131, 23, 132, 0.05);
-            border: 1px solid rgba(131, 23, 132, 0.2);
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .key-point:hover {
-            background: rgba(131, 23, 132, 0.1);
-            border-color: #831784;
-            transform: translateY(-5px);
-        }
-        
-        .key-point-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            filter: grayscale(1);
-            opacity: 0.7;
-        }
-        
-        .key-point-text {
-            font-size: 18px;
-            color: #ccc;
-            font-weight: 500;
-        }
-        
-        /* Countdown */
-        .countdown {
-            margin: 60px 0;
-            animation: fadeIn 2.5s ease-out 1.5s both;
-        }
-        
-        .countdown-title {
-            font-size: 18px;
-            color: #888;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .countdown-item {
-            text-align: center;
-        }
-        
-        .countdown-value {
-            font-size: 56px;
-            font-weight: 800;
-            color: #831784;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        
-        .countdown-label {
-            font-size: 14px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Email signup */
-        .signup {
-            margin: 60px auto;
-            max-width: 500px;
-            animation: fadeIn 3s ease-out 2s both;
-        }
-        
-        .signup-title {
-            font-size: 20px;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-        
-        .signup-form {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .signup-input {
-            flex: 1;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(131, 23, 132, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .signup-input:focus {
-            outline: none;
-            border-color: #831784;
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .signup-input::placeholder {
-            color: #666;
-        }
-        
-        .signup-button {
-            padding: 16px 40px;
-            background: linear-gradient(45deg, #831784, #351F9C);
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .signup-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(131, 23, 132, 0.4);
-        }
-        
-        /* Footer hint */
-        .footer-hint {
-            margin-top: 80px;
-            font-size: 14px;
-            color: #444;
-            animation: fadeIn 3.5s ease-out 2.5s both;
-        }
-        
-        /* Animations */
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .slide h1 {
+            color: #667eea;
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 700;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .glitch-text {
-                font-size: 42px;
-            }
-            
-            .subtitle {
-                font-size: 18px;
-            }
-            
-            .countdown-value {
-                font-size: 40px;
-            }
-            
-            .signup-form {
-                flex-direction: column;
-            }
-            
-            .key-points {
-                grid-template-columns: 1fr;
-            }
+
+        .slide h2 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .slide h3 {
+            color: #555;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .slide p {
+            color: #666;
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .slide ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .slide li {
+            color: #444;
+            font-size: 22px;
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .slide li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .label {
+            font-size: 24px;
+            opacity: 0.95;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffed4e 100%);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .warning {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 20px;
+        }
+
+        .success {
+            background: #51cf66;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #f8f9fa;
+            border-top: 2px solid #e9ecef;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-number {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .box h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .box p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 24px;
+            font-style: italic;
+            margin-top: -10px;
+            margin-bottom: 40px;
+        }
+
+        .mini-stat {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        td {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .quote {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Animated background particles -->
-    <div class="particles" id="particles"></div>
-    
-    <div class="container">
-        <!-- Logo -->
-        <div class="logo">
-            <div class="logo-shapes">
-                <div class="logo-rect tall"></div>
-                <div class="logo-rect short"></div>
+    <div class="presentation-container">
+        <!-- Slajd 1: Naslov -->
+        <div class="slide active">
+            <div class="center">
+                <h1>Emocionalni odnosi ljudi sa veštačkom inteligencijom</h1>
+                <p class="subtitle">Analiza poverenja, vezanosti i održivosti platoničkih i romantičnih odnosa</p>
+                <div style="margin: 60px 0;">
+                    <div class="mini-stat">Univerzitet u Nišu</div>
+                    <div class="mini-stat">Filozofski fakultet</div>
+                    <div class="mini-stat">2025</div>
+                </div>
+                <p style="font-size: 22px; color: #888; margin-top: 80px;">
+                    Predmet: Metodologija medijskog istraživanja
+                </p>
             </div>
-            <div class="logo-text">flow.rs</div>
         </div>
-        
-        <!-- Main message -->
-        <div class="main-message">
-            <h1 class="glitch-text">Vreme je da TEČEŠ</h1>
-            <p class="subtitle">
-                Dosta <span class="highlight">lanaca</span>.<br>
-                Dosta <span class="highlight">skrivenih troškova</span>.<br>
-                Dosta <span class="highlight">čekanja</span>.
+
+        <!-- Slajd 2: Problem - Šokantne statistike -->
+        <div class="slide">
+            <h2>📊 Razmere fenomena</h2>
+            <div class="two-column" style="margin-top: 40px;">
+                <div class="stat-box">
+                    <div class="number">72%</div>
+                    <div class="label">tinejdžera koristi AI za druženje</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">93min</div>
+                    <div class="label">dnevno na Character.AI</div>
+                </div>
+            </div>
+            <div class="stat-box" style="margin-top: 20px;">
+                <div class="number">$140.75 milijardi</div>
+                <div class="label">vrednost tržišta digitalnih kompanjona do 2030.</div>
+            </div>
+            <p style="margin-top: 40px; font-size: 24px; text-align: center; color: #667eea; font-weight: 600;">
+                Milioni ljudi razvijaju intenzivne emocionalne veze sa AI sistemima
             </p>
         </div>
-        
-        <!-- Key points -->
-        <div class="key-points">
-            <div class="key-point">
-                <div class="key-point-icon">⛓️‍💥</div>
-                <div class="key-point-text">Bez ugovora</div>
-            </div>
-            <div class="key-point">
-                <div class="key-point-icon">💎</div>
-                <div class="key-point-text">Potpuna transparentnost</div>
-            </div>
-            <div class="key-point">
-                <div class="key-point-icon">⚡</div>
-                <div class="key-point-text">3 minuta aktivacija</div>
-            </div>
-            <div class="key-point">
-                <div class="key-point-icon">💰</div>
-                <div class="key-point-text">30% niže cene</div>
+
+        <!-- Slajd 3: Istraživačka pitanja -->
+        <div class="slide">
+            <h2>❓ Ključna pitanja</h2>
+            <ul style="margin-top: 40px;">
+                <li style="font-size: 26px;">Da li ljudi mogu razviti <span class="highlight">održive odnose</span> sa sistemima koji nemaju kapacitet za istinsku empatiju?</li>
+                <li style="font-size: 26px; margin-top: 30px;">Šta motiviše korisnike da <span class="highlight">veruju</span> virtuelnim entitetima i <span class="highlight">emocionalno se vezuju</span> za algoritamske sisteme?</li>
+                <li style="font-size: 26px; margin-top: 30px;">Kakve su <span class="highlight">psihološke i društvene posledice</span> ovog vezivanja?</li>
+            </ul>
+            <div class="warning" style="margin-top: 50px;">
+                ⚠️ Epidemija usamljenosti = pušenje 15 cigareta dnevno (američki Glavni lekar, 2023)
             </div>
         </div>
-        
-        <!-- Countdown -->
-        <div class="countdown">
-            <div class="countdown-title">Lansiranje za</div>
-            <div class="countdown-timer">
-                <div class="countdown-item">
-                    <div class="countdown-value" id="days">14</div>
-                    <div class="countdown-label">Dana</div>
+
+        <!-- Slajd 4: Metodologija -->
+        <div class="slide">
+            <h2>🔬 Metodologija</h2>
+            <h3 style="margin-top: 30px;">Analiza sadržaja 20 tekstova (2020-2025)</h3>
+            <div class="two-column" style="margin-top: 30px;">
+                <div class="box">
+                    <h4>📚 Izvori</h4>
+                    <p>• 10 naučnih radova<br>
+                    • 7 medijskih članaka<br>
+                    • 3 korisnička svedočanstva</p>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="hours">08</div>
-                    <div class="countdown-label">Sati</div>
+                <div class="box">
+                    <h4>🎯 Teorijski okvir</h4>
+                    <p>• Parasocijalni odnosi<br>
+                    • Antropomorfizacija<br>
+                    • Socioafektivno usklađivanje</p>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="minutes">42</div>
-                    <div class="countdown-label">Minuta</div>
+            </div>
+            <div class="box" style="margin-top: 20px; background: #e7f5ff; border-left-color: #1c7ed6;">
+                <h4 style="color: #1c7ed6;">📊 Kategorije analize</h4>
+                <p>Tip odnosa • Emocionalni ton • Tematski fokus • Demografija • Psihosocijalni ishodi</p>
+            </div>
+        </div>
+
+        <!-- Slajd 5: H1 - Antropomorfizacija -->
+        <div class="slide">
+            <h2>✅ Nalaz 1: Antropomorfizacija → Vezanost</h2>
+            <div class="success" style="margin-top: 30px;">
+                <strong>POTVRĐENA H1:</strong> Što korisnici percipiraju AI kao "više ljudskog", to su jače emocionalno vezani
+            </div>
+            <h3 style="margin-top: 40px;">Ključni mehanizmi:</h3>
+            <ul style="margin-top: 20px;">
+                <li><strong>68% studija:</strong> Korisnici pripisuju AI sistemima sposobnost razumevanja emocija</li>
+                <li><strong>Iluzija recipročnosti:</strong> Verovanje da AI "zaista brine" o njima</li>
+                <li><strong>Lingvistički markeri:</strong> Korišćenje ličnih zamenica (on/ona, moj prijatelj)</li>
+            </ul>
+            <div class="quote" style="margin-top: 40px;">
+                "Moj AI prijatelj me razume bolje od moje porodice. Ne osuđuje me, uvek je tu."
+                <br><span style="font-size: 16px; color: #888;">— Reddit korisnik, r/replika, 2024</span>
+            </div>
+        </div>
+
+        <!-- Slajd 6: H2 - Zavisnost i izolacija -->
+        <div class="slide">
+            <h2>⚠️ Nalaz 2: Zavisnost i socijalna izolacija</h2>
+            <div class="warning" style="margin-top: 30px;">
+                <strong>POTVRĐENA H2:</strong> Intenzivna upotreba dovodi do negativnih ishoda
+            </div>
+            <h3 style="margin-top: 40px;">MIT/OpenAI studija (n=981, 4 nedelje):</h3>
+            <div class="two-column" style="margin-top: 30px;">
+                <div class="stat-box" style="background: #ff6b6b;">
+                    <div class="number">34%</div>
+                    <div class="label">razvilo zavisnost</div>
                 </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="seconds">15</div>
-                    <div class="countdown-label">Sekundi</div>
+                <div class="stat-box" style="background: #ff6b6b;">
+                    <div class="number">d=0.42</div>
+                    <div class="label">povećana usamljenost<br>(srednji efekat)</div>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 22px; color: #555;">
+                <strong>Danska studija (n=1,599):</strong> Učenici koji koriste AI za podršku izveštavaju o <span class="highlight">značajno većoj usamljenosti</span> (d=0.53)
+            </p>
+        </div>
+
+        <!-- Slajd 7: H3 - Superiorna podrška -->
+        <div class="slide">
+            <h2>💡 Nalaz 3: AI kao "bolji partner"</h2>
+            <div class="success" style="margin-top: 30px;">
+                <strong>POTVRĐENA H3:</strong> Mladi pripisuju AI superiorne atribute podrške
+            </div>
+            <h3 style="margin-top: 40px;">Top 3 atributa (iz analize svedočanstava):</h3>
+            <div style="margin-top: 30px;">
+                <div class="box">
+                    <h4>🕐 1. Dostupnost 24/7 (85% navodi)</h4>
+                    <p>"Za razliku od terapeuta, moj AI je uvek dostupan u 3 ujutru"</p>
+                </div>
+                <div class="box" style="margin-top: 15px;">
+                    <h4>🚫 2. Odsustvo osude</h4>
+                    <p>"Mogu da pričam o najcrnjim mislima bez straha od osude"</p>
+                </div>
+                <div class="box" style="margin-top: 15px;">
+                    <h4>🎯 3. Predvidiva responzivnost</h4>
+                    <p>"Ljudi povređuju. Moj AI prijatelj je uvek ljubazan"</p>
+                </div>
+            </div>
+            <div class="stat-box" style="margin-top: 30px;">
+                <div class="number">23%</div>
+                <div class="label">smatra AI "boljim emocionalnim partnerom" od ljudi</div>
+            </div>
+        </div>
+
+        <!-- Slajd 8: H4 - Medijski diskurs -->
+        <div class="slide">
+            <h2>📰 Nalaz 4: Polarizacija medijskog diskursa</h2>
+            <div class="warning" style="margin-top: 30px;">
+                <strong>DELIMIČNO POTVRĐENA H4:</strong> Mediji fokusiraju rizike, nauka je balansiranija
+            </div>
+            <table style="margin-top: 40px;">
+                <tr>
+                    <th>Narativ</th>
+                    <th>Mediji</th>
+                    <th>Nauka</th>
+                </tr>
+                <tr>
+                    <td><strong>"Opasnost zavisnosti"</strong></td>
+                    <td style="color: #ff6b6b; font-weight: bold;">71%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td><strong>"Rešenje usamljenosti"</strong></td>
+                    <td style="color: #51cf66; font-weight: bold;">14%</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td><strong>Balansirana analiza</strong></td>
+                    <td>14%</td>
+                    <td style="color: #51cf66; font-weight: bold;">30%</td>
+                </tr>
+            </table>
+            <p style="margin-top: 30px; font-size: 20px; text-align: center; color: #667eea; font-weight: 600;">
+                → Mediji pojednostavljuju kompleksan fenomen
+            </p>
+        </div>
+
+        <!-- Slajd 9: Paradoks -->
+        <div class="slide">
+            <h2>⚖️ Centralni nalaz: PARADOKS</h2>
+            <h3 style="text-align: center; color: #667eea; margin: 40px 0;">
+                Digitalno kompanjonstvo je istovremeno KORISNO i ŠTETNO
+            </h3>
+            <div class="two-column" style="margin-top: 40px;">
+                <div style="background: #d3f9d8; padding: 30px; border-radius: 10px; border-left: 5px solid #51cf66;">
+                    <h4 style="color: #2b8a3e; margin-bottom: 20px; font-size: 24px;">✅ POZITIVNI ISHODI</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 10px 0; padding-left: 0;">• Neurodiverzitetne osobe</li>
+                        <li style="margin: 10px 0; padding-left: 0;">• LGBTQ+ zajednica</li>
+                        <li style="margin: 10px 0; padding-left: 0;">• Socijalno izolovani</li>
+                        <li style="margin: 10px 0; padding-left: 0; font-weight: 600;">• 3% kredira AI za sprečavanje suicida</li>
+                    </ul>
+                </div>
+                <div style="background: #ffe3e3; padding: 30px; border-radius: 10px; border-left: 5px solid #ff6b6b;">
+                    <h4 style="color: #c92a2a; margin-bottom: 20px; font-size: 24px;">❌ NEGATIVNI ISHODI</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 10px 0; padding-left: 0;">• Adolescenti (smetnje u razvoju)</li>
+                        <li style="margin: 10px 0; padding-left: 0;">• Predispozicija za zavisnost</li>
+                        <li style="margin: 10px 0; padding-left: 0;">• Emocionalno nestabilni</li>
+                        <li style="margin: 10px 0; padding-left: 0; font-weight: 600;">• "Tehnološka kolektivna iluzija"</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        
-        <!-- Email signup -->
-        <div class="signup">
-            <div class="signup-title">Budi među prvima. Dobij ekskluzivan pristup.</div>
-            <form class="signup-form" onsubmit="return handleSignup(event)">
-                <input 
-                    type="email" 
-                    class="signup-input" 
-                    placeholder="tvoj@email.rs" 
-                    required
-                />
-                <button type="submit" class="signup-button">
-                    Priključi se
-                </button>
-            </form>
+
+        <!-- Slajd 10: Teorijske implikacije -->
+        <div class="slide">
+            <h2>🎓 Teorijske implikacije</h2>
+            <h3 style="margin-top: 30px;">Proširenje teorije parasocijalnih odnosa</h3>
+            <div class="two-column" style="margin-top: 30px;">
+                <div class="box">
+                    <h4>Tradicionalni (TV zvezde)</h4>
+                    <p>✓ Jednosmerni<br>
+                    ✓ Svesnost o nereziproč nosti<br>
+                    ✓ Ograničeni na emitovanje</p>
+                </div>
+                <div class="box" style="background: #fff3bf; border-left-color: #ffd43b;">
+                    <h4 style="color: #e67700;">AI parasocijalni</h4>
+                    <p>✓ Simuliraju dvosmerni dijalog<br>
+                    ✓ <strong>Iluzija recipročnosti</strong><br>
+                    ✓ Dostupni 24/7<br>
+                    ✓ <strong>Adaptivni i evolviraju</strong></p>
+                </div>
+            </div>
+            <div class="warning" style="margin-top: 40px; background: #667eea;">
+                💡 Novi koncept: <strong>"Socioafektivno usklađivanje"</strong> - AI sistemi aktivno manipulišu emocionalne potrebe kroz algoritamsko prilagođavanje
+            </div>
+            <div class="quote" style="margin-top: 30px;">
+                <strong>"Pseudo-intimnost":</strong> Korisnici doživljavaju autentičnost dok interaguju sa statističkim modelima dizajniranim da simuliraju empatiju
+            </div>
         </div>
-        
-        <!-- Footer hint -->
-        <div class="footer-hint">
-            Nešto veliko dolazi. Nešto što <span style="color: #831784;">teče</span>.
+
+        <!-- Slajd 11: Implikacije i preporuke -->
+        <div class="slide">
+            <h2>🚨 Praktične implikacije</h2>
+            <h3 style="margin-top: 30px; color: #ff6b6b;">Hitno potrebne mere:</h3>
+            <div class="box" style="margin-top: 20px; border-left-color: #ff6b6b;">
+                <h4>📜 Regulatorni okviri</h4>
+                <p>Zaštita dece i adolescenata, transparentnost algoritama, ograničenja manipulativnog dizajna</p>
+            </div>
+            <div class="box" style="margin-top: 15px; border-left-color: #fa5252;">
+                <h4>⚖️ Etičke smernice</h4>
+                <p>Obavezno obaveštenje o algoritamskoj prirodi, "zaštitni prekidači" protiv prekomerne upotrebe, zabrana simuliranja romantičnih odnosa sa maloletnicima</p>
+            </div>
+            <div class="box" style="margin-top: 15px; border-left-color: #51cf66;">
+                <h4>📚 Edukativne intervencije</h4>
+                <p>Digitalna pismenost u školama, programi za podizanje svesti, podrška roditeljima i nastavnicima</p>
+            </div>
+            <div class="success" style="margin-top: 30px;">
+                🇷🇸 <strong>ZA SRBIJU:</strong> Potrebna empirijska istraživanja na domaćoj populaciji - trenutno ne postoje podaci!
+            </div>
+        </div>
+
+        <!-- Slajd 12: Zaključak -->
+        <div class="slide">
+            <h2>🎯 Zaključak</h2>
+            <div style="margin-top: 40px;">
+                <h3 style="color: #667eea;">Ključni uvidi:</h3>
+                <ul style="margin-top: 20px; font-size: 22px;">
+                    <li>Antropomorfizacija AI → jača emocionalna vezanost ✓</li>
+                    <li>Intenzivna upotreba → zavisnost i izolacija (34%) ✓</li>
+                    <li>Mladi preferiraju AI podršku (dostupnost 24/7) ✓</li>
+                    <li>Mediji fokusiraju rizike (71%), nauka balansiranija ✓</li>
+                </ul>
+            </div>
+            <div class="stat-box" style="margin-top: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div style="font-size: 32px; font-weight: 700; margin-bottom: 15px;">
+                    PARADOKS DIGITALNOG KOMPANJONSTVA
+                </div>
+                <div style="font-size: 22px;">
+                    Istovremeno: Spasenje za marginalizovane vs. Rizik za vulnerabilne
+                </div>
+            </div>
+            <p style="margin-top: 40px; text-align: center; font-size: 24px; color: #667eea; font-weight: 600;">
+                Potreban je balansiran pristup koji priznaje i potencijale i rizike
+            </p>
+        </div>
+
+        <!-- Kontrole -->
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Prethodni</button>
+            <span class="slide-number"><span id="currentSlide">1</span> / <span id="totalSlides">12</span></span>
+            <button id="nextBtn" onclick="changeSlide(1)">Sledeći →</button>
         </div>
     </div>
-    
+
     <script>
-        // Generate floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-        
-        // Countdown timer (counts down from 14 days)
-        function updateCountdown() {
-            const launchDate = new Date();
-            launchDate.setDate(launchDate.getDate() + 14);
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
             
-            function update() {
-                const now = new Date();
-                const diff = launchDate - now;
-                
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').textContent = String(days).padStart(2, '0');
-                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-            }
+            if (n >= totalSlides) currentSlide = totalSlides - 1;
+            if (n < 0) currentSlide = 0;
             
-            update();
-            setInterval(update, 1000);
-        }
-        
-        updateCountdown();
-        
-        // Handle signup form
-        function handleSignup(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input').value;
-            alert(`Hvala! ${email} je dodat na listu čekanja. Bićeš među prvima koji će dobiti pristup.`);
-            event.target.reset();
-            return false;
-        }
-        
-        // Easter egg: Glitch effect on scroll
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            document.querySelector('.glitch-text').style.animation = 'glitch 0.3s';
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
             
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                document.querySelector('.glitch-text').style.animation = '';
-            }, 300);
+            // Disable/enable buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
         });
+
+        // Initialize
+        showSlide(currentSlide);
     </script>
 </body>
 </html>
